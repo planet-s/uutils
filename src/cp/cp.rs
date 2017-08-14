@@ -731,6 +731,20 @@ fn preserve_hardlinks(
                     inode = stat.st_ino as u64;
                     nlinks = stat.st_nlink as u64;
                 }
+                #[cfg(target_os = "redox")]
+                {
+                    use std::os::unix::fs::MetadataExt;
+
+                    match fs::symlink_metadata(source) {
+                        Ok(metadata) => {
+                            inode = metadata.ino();
+                            nlinks = metadata.nlink();
+                        },
+                        Err(err) => {
+                            return Err(format!("cannot stat {:?}: {}", src_path, err).into());
+                        }
+                    }
+                }
                 #[cfg(windows)]
                 {
                     let mut stat = mem::uninitialized();
