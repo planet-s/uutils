@@ -6,7 +6,7 @@ stages:
 
 before_script:
     - rustup toolchain add $toolchain
-    - if [ redox ]; then; rustup target add x86_64-unknown-redox --toolchain $toolchain; fi
+    - if $redox; then; rustup target add x86_64-unknown-redox --toolchain $toolchain; fi
     - rustup show
 
 cache:
