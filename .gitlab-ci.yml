@@ -5,6 +5,8 @@ stages:
     - test
 
 before_script:
+    - apt-get update
+    - apt-get install cmake
     - rustup toolchain add $toolchain
     - if [ $redox ]; then rustup target add x86_64-unknown-redox --toolchain $toolchain; fi
     - rustup show
@@ -13,7 +15,7 @@ cache:
     paths:
         - target/
 
-build:linux:stable:
+.build:linux:stable:
     stage: build
     variables:
         toolchain: stable
@@ -25,7 +27,7 @@ build:linux:stable:
         - cargo +stable build --verbose
         - cargo +stable build --release --verbose
 
-build:redox:stable:
+.build:redox:stable:
     stage: build
     variables:
         toolchain: stable
@@ -48,7 +50,7 @@ test:linux:stable:
         - cargo +stable test --verbose
         - cargo +stable test --release --verbose
 
-build:linux:beta:
+.build:linux:beta:
     stage: build
     variables:
         toolchain: beta
@@ -60,7 +62,7 @@ build:linux:beta:
         - cargo +beta build --verbose
         - cargo +beta build --release --verbose
 
-build:redox:beta:
+.build:redox:beta:
     stage: build
     variables:
         toolchain: beta
