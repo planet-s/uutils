@@ -40,7 +40,7 @@ cache:
         - cargo +stable build --verbose --target x86_64-unknown-redox
         - cargo +stable build --release --verbose --target x86_64-unknown-redox
 
-test:linux:stable:
+.test:linux:stable:
     stage: test
     variables:
         toolchain: stable
@@ -75,7 +75,7 @@ test:linux:stable:
         - cargo +beta build --verbose --target x86_64-unknown-redox
         - cargo +beta build --release --verbose --target x86_64-unknown-redox
 
-test:linux:beta:
+.test:linux:beta:
     stage: test
     variables:
         toolchain: beta
