@@ -35,7 +35,7 @@ use std::cmp::Reverse;
 #[cfg(unix)]
 use std::collections::HashMap;
 
-#[cfg(any(unix, target_os = "redox"))]
+#[cfg(unix)]
 use std::os::unix::fs::MetadataExt;
 #[cfg(unix)]
 use std::os::unix::fs::FileTypeExt;
@@ -206,7 +206,7 @@ fn list(options: getopts::Matches) {
     }
 }
 
-#[cfg(any(unix, target_os = "redox"))]
+#[cfg(unix)]
 fn sort_entries(entries: &mut Vec<PathBuf>, options: &getopts::Matches) {
     let mut reverse = options.opt_present("r");
     if options.opt_present("t") {
@@ -444,10 +444,10 @@ fn get_inode(_metadata: &Metadata, _options: &getopts::Matches) -> String {
 
 // Currently getpwuid is `linux` target only. If it's broken out into
 // a posix-compliant attribute this can be updated...
-#[cfg(unix)]
+#[cfg(all(unix, not(target_os = "redox")))]
 use uucore::entries;
 
-#[cfg(unix)]
+#[cfg(all(unix, not(target_os = "redox")))]
 fn display_uname(metadata: &Metadata, options: &getopts::Matches) -> String {
     if options.opt_present("numeric-uid-gid") {
         metadata.uid().to_string()
@@ -456,13 +456,23 @@ fn display_uname(metadata: &Metadata, options: &getopts::Matches) -> String {
     }
 }
 
-#[cfg(unix)]
+#[cfg(all(unix, not(target_os = "redox")))]
 fn display_group(metadata: &Metadata, options: &getopts::Matches) -> String {
     if options.opt_present("numeric-uid-gid") {
         metadata.gid().to_string()
     } else {
         entries::gid2grp(metadata.gid()).unwrap_or(metadata.gid().to_string())
     }
+}
+
+#[cfg(target_os = "redox")]
+fn display_uname(metadata: &Metadata, options: &getopts::Matches) -> String {
+    metadata.uid().to_string()
+}
+
+#[cfg(target_os = "redox")]
+fn display_group(metadata: &Metadata, options: &getopts::Matches) -> String {
+    metadata.gid().to_string()
 }
 
 #[cfg(not(unix))]

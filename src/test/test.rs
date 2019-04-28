@@ -10,8 +10,6 @@
  */
 
 extern crate libc;
-#[cfg(target_os = "redox")]
-extern crate syscall;
 
 use std::collections::HashMap;
 use std::ffi::OsString;
@@ -148,10 +146,7 @@ fn isatty(fd: &[u8]) -> bool {
         .ok()
         .and_then(|s| s.parse().ok())
         .map_or(false, |i| {
-            #[cfg(not(target_os = "redox"))]
             unsafe { libc::isatty(i) == 1 }
-            #[cfg(target_os = "redox")]
-            syscall::dup(i, b"termios").map(syscall::close).is_ok()
         })
 }
 
@@ -359,11 +354,7 @@ fn path(path: &[u8], cond: PathCondition) -> bool {
     }
 
     let perm = |metadata: Metadata, p: Permission| {
-        #[cfg(not(target_os = "redox"))]
         let (uid, gid) = unsafe { (libc::getuid(), libc::getgid()) };
-        #[cfg(target_os = "redox")]
-        let (uid, gid) = (syscall::getuid().unwrap() as u32,
-                          syscall::getgid().unwrap() as u32);
 
         if uid == metadata.uid() {
             metadata.mode() & ((p as u32) << 6) != 0

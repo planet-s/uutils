@@ -123,7 +123,7 @@ fn mkdir(path: &Path, recursive: bool, mode: u16, verbose: bool) -> i32 {
         show_info!("created directory '{}'", path.display());
     }
 
-    #[cfg(any(unix, target_os = "redox"))]
+    #[cfg(unix)]
     fn chmod(path: &Path, mode: u16) -> i32 {
         use fs::{Permissions, set_permissions};
         use std::os::unix::fs::{PermissionsExt};

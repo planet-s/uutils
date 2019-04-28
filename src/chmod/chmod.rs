@@ -184,7 +184,7 @@ impl Chmoder {
         // instead it just sets the readonly attribute on the file
         Err(0)
     }
-    #[cfg(any(unix, target_os = "redox"))]
+    #[cfg(unix)]
     fn chmod_file(&self, file: &Path, name: &str) -> Result<(), i32> {
         let mut fperm = match fs::metadata(name) {
             Ok(meta) => meta.mode() & 0o7777,

@@ -12,9 +12,6 @@ path = "test.rs"
 libc = "0.2.42"
 uucore = { path="../uucore" }
 
-[target.'cfg(target_os = "redox")'.dependencies]
-redox_syscall = "0.1"
-
 [[bin]]
 name = "test"
 path = "../../uumain.rs"

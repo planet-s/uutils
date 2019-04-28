@@ -33,7 +33,7 @@ pub mod parse_time;
 pub mod mode;
 #[cfg(all(unix, not(target_os = "fuchsia"), feature = "utmpx"))]
 pub mod utmpx;
-#[cfg(all(unix, feature = "entries"))]
+#[cfg(all(unix, not(target_os = "redox"), feature = "entries"))]
 pub mod entries;
 #[cfg(all(unix, feature = "process"))]
 pub mod process;

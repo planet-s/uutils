@@ -9,7 +9,7 @@ name = "uu_arch"
 path = "arch.rs"
 
 [dependencies]
-platform-info = { git = "https://github.com/uutils/platform-info" }
+platform-info = { git = "https://gitlab.redox-os.org/redox-os/platform-info.git", branch = "redox-unix" }
 uucore = { path = "../uucore" }
 
 [[bin]]

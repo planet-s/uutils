@@ -6,9 +6,6 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-#[cfg(target_os = "redox")]
-extern crate termion;
-
 #[cfg(unix)]
 use super::libc;
 #[cfg(unix)]
@@ -16,10 +13,8 @@ use super::libc::{mode_t, S_IRGRP, S_IROTH, S_IRUSR, S_ISGID, S_ISUID, S_ISVTX, 
                   S_IWUSR, S_IXGRP, S_IXOTH, S_IXUSR};
 use std::env;
 use std::fs;
-#[cfg(any(unix, target_os = "redox"))]
+#[cfg(unix)]
 use std::os::unix::fs::MetadataExt;
-#[cfg(target_os = "redox")]
-use std::io;
 use std::io::{Error, ErrorKind};
 use std::io::Result as IOResult;
 use std::path::{Component, Path, PathBuf};
@@ -173,11 +168,6 @@ pub fn is_stdin_interactive() -> bool {
     false
 }
 
-#[cfg(target_os = "redox")]
-pub fn is_stdin_interactive() -> bool {
-    termion::is_tty(&io::stdin())
-}
-
 #[cfg(unix)]
 pub fn is_stdout_interactive() -> bool {
     unsafe { libc::isatty(libc::STDOUT_FILENO) == 1 }
@@ -188,11 +178,6 @@ pub fn is_stdout_interactive() -> bool {
     false
 }
 
-#[cfg(target_os = "redox")]
-pub fn is_stdout_interactive() -> bool {
-    termion::is_tty(&io::stdout())
-}
-
 #[cfg(unix)]
 pub fn is_stderr_interactive() -> bool {
     unsafe { libc::isatty(libc::STDERR_FILENO) == 1 }
@@ -201,11 +186,6 @@ pub fn is_stderr_interactive() -> bool {
 #[cfg(windows)]
 pub fn is_stderr_interactive() -> bool {
     false
-}
-
-#[cfg(target_os = "redox")]
-pub fn is_stderr_interactive() -> bool {
-    termion::is_tty(&io::stderr())
 }
 
 #[cfg(not(unix))]

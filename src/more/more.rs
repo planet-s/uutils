@@ -18,9 +18,9 @@ use getopts::Options;
 use std::io::{stdout, Read, Write};
 use std::fs::File;
 
-#[cfg(all(unix, not(target_os = "fuchsia")))]
+#[cfg(all(unix, not(target_os = "fuchsia"), not(target_os = "redox")))]
 extern crate nix;
-#[cfg(all(unix, not(target_os = "fuchsia")))]
+#[cfg(all(unix, not(target_os = "fuchsia"), not(target_os = "redox")))]
 use nix::sys::termios;
 
 #[cfg(target_os = "redox")]
@@ -84,7 +84,7 @@ fn help(usage: &str) {
     println!("{}", msg);
 }
 
-#[cfg(all(unix, not(target_os = "fuchsia")))]
+#[cfg(all(unix, not(target_os = "fuchsia"), not(target_os = "redox")))]
 fn setup_term() -> termios::Termios {
     let mut term = termios::tcgetattr(0).unwrap();
     // Unset canonical mode, so we get characters immediately
@@ -113,7 +113,7 @@ fn setup_term() -> redox_termios::Termios {
     term
 }
 
-#[cfg(all(unix, not(target_os = "fuchsia")))]
+#[cfg(all(unix, not(target_os = "fuchsia"), not(target_os = "redox")))]
 fn reset_term(term: &mut termios::Termios) {
     term.c_lflag.insert(termios::ICANON);
     term.c_lflag.insert(termios::ECHO);
