@@ -835,7 +835,7 @@ version = "0.0.1"
 dependencies = [
  "getopts 0.2.18 (registry+https://github.com/rust-lang/crates.io-index)",
  "rand 0.5.6 (registry+https://github.com/rust-lang/crates.io-index)",
- "tempfile 2.2.0 (registry+https://github.com/rust-lang/crates.io-index)",
+ "tempfile 2.2.0 (git+https://gitlab.redox-os.org/redox-os/tempfile?branch=redox-unix)",
  "uucore 0.0.1",
 ]
 
@@ -1594,12 +1594,11 @@ dependencies = [
 [[package]]
 name = "tempfile"
 version = "2.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
+source = "git+https://gitlab.redox-os.org/redox-os/tempfile?branch=redox-unix#0ae305457184fa974ea1c4f7ed4602afdd5fedc6"
 dependencies = [
  "kernel32-sys 0.2.2 (registry+https://github.com/rust-lang/crates.io-index)",
  "libc 0.2.58 (registry+https://github.com/rust-lang/crates.io-index)",
  "rand 0.3.23 (registry+https://github.com/rust-lang/crates.io-index)",
- "redox_syscall 0.1.54 (registry+https://github.com/rust-lang/crates.io-index)",
  "winapi 0.2.8 (registry+https://github.com/rust-lang/crates.io-index)",
 ]
 
@@ -2209,7 +2208,7 @@ dependencies = [
 "checksum syn 0.15.33 (registry+https://github.com/rust-lang/crates.io-index)" = "ec52cd796e5f01d0067225a5392e70084acc4c0013fa71d55166d38a8b307836"
 "checksum synstructure 0.10.1 (registry+https://github.com/rust-lang/crates.io-index)" = "73687139bf99285483c96ac0add482c3776528beac1d97d444f6e91f203a2015"
 "checksum tempdir 0.3.7 (registry+https://github.com/rust-lang/crates.io-index)" = "15f2b5fb00ccdf689e0149d1b1b3c03fead81c2b37735d812fa8bddbbf41b6d8"
-"checksum tempfile 2.2.0 (registry+https://github.com/rust-lang/crates.io-index)" = "11ce2fe9db64b842314052e2421ac61a73ce41b898dc8e3750398b219c5fc1e0"
+"checksum tempfile 2.2.0 (git+https://gitlab.redox-os.org/redox-os/tempfile?branch=redox-unix)" = "<none>"
 "checksum term_grid 0.1.7 (registry+https://github.com/rust-lang/crates.io-index)" = "230d3e804faaed5a39b08319efb797783df2fd9671b39b7596490cb486d702cf"
 "checksum termion 1.5.3 (registry+https://github.com/rust-lang/crates.io-index)" = "6a8fb22f7cde82c8220e5aeacb3258ed7ce996142c77cba193f203515e26c330"
 "checksum termsize 0.1.6 (registry+https://github.com/rust-lang/crates.io-index)" = "5e86d824a8e90f342ad3ef4bd51ef7119a9b681b0cc9f8ee7b2852f02ccd2517"
