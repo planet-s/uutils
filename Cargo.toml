@@ -271,6 +271,5 @@ path = "src/uutils/uutils.rs"
 name = "tests"
 
 [patch.crates-io]
-libc = { git = "https://github.com/rust-lang/libc" }
 tempfile = { git = "https://gitlab.redox-os.org/redox-os/tempfile", branch = "redox-unix" }
 termsize = { git = "https://github.com/softprops/termsize" }
