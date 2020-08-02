@@ -272,4 +272,3 @@ name = "tests"
 
 [patch.crates-io]
 tempfile = { git = "https://gitlab.redox-os.org/redox-os/tempfile", branch = "redox-unix" }
-termsize = { git = "https://github.com/softprops/termsize" }
